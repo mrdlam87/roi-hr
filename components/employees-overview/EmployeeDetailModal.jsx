@@ -1,29 +1,75 @@
-import { StyleSheet, View, Text, Modal } from "react-native";
+import { useContext } from "react";
+import { StyleSheet, View, Text, Modal, Pressable } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { EmployeeContext } from "../../contexts/employee.context";
+import EmployeeDetailItem from "./EmployeeDetailItem";
+import { Departments } from "../../constants/departments";
 
-const EmployeeDetailModal = ({ employee }) => {
-  // const {
-  //   name,
-  //   phone,
-  //   department,
-  //   addressStreet,
-  //   addressCity,
-  //   addressState,
-  //   addressZip,
-  //   addressCountry,
-  // } = employee;
+const EmployeeDetailModal = () => {
+  const { showEmployeeDetail, setShowEmployeeDetail, selectedEmployee } =
+    useContext(EmployeeContext);
 
   const backgroundClickHandler = () => {
-    console.log("bg");
+    setShowEmployeeDetail(false);
   };
 
+  if (!selectedEmployee) return;
+
+  const {
+    name,
+    phone,
+    department,
+    addressStreet,
+    addressCity,
+    addressState,
+    addressZip,
+    addressCountry,
+  } = selectedEmployee;
+
+  const addressString = `${addressStreet}, ${addressCity}, ${addressState} ${addressZip}`;
+
   return (
-    <Modal style={styles.modal} transparent={true} visible={false}>
-      <View style={styles.container}>
+    <Modal
+      style={styles.modal}
+      transparent={true}
+      visible={showEmployeeDetail}
+      animationType="fade"
+    >
+      <Pressable style={styles.container} onPress={backgroundClickHandler}>
         <View style={styles.card}>
-          <Text>TEST</Text>
+          <View style={styles.nameContainer}>
+            <Text style={styles.nameText}>{name}</Text>
+          </View>
+          <EmployeeDetailItem
+            label={phone}
+            style={styles.detail}
+            textStyle={styles.detailText}
+            iconName="call"
+            iconSize={20}
+          />
+          <EmployeeDetailItem
+            label={addressString}
+            style={styles.detail}
+            textStyle={styles.detailText}
+            iconName="home"
+            iconSize={20}
+          />
+          <EmployeeDetailItem
+            label={addressCountry}
+            style={styles.detail}
+            textStyle={styles.detailText}
+            iconName="globe"
+            iconSize={20}
+          />
+          <EmployeeDetailItem
+            label={Departments.find((d) => d.id === department)?.name}
+            style={styles.detail}
+            textStyle={styles.detailText}
+            iconName="business"
+            iconSize={20}
+          />
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };
@@ -40,8 +86,28 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: GlobalStyles.colors.secondaryLightOrange,
-    padding: 100,
+    padding: 10,
+    width: "80%",
     borderRadius: GlobalStyles.borderRadius,
     elevation: 5,
+  },
+  nameContainer: {
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: GlobalStyles.colors.primaryRed,
+    borderRadius: GlobalStyles.borderRadius,
+  },
+  nameText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  detail: {
+    marginTop: 10,
+  },
+  detailText: {
+    fontSize: 16,
+    marginLeft: 5,
   },
 });

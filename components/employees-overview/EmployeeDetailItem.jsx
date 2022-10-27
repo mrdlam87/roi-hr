@@ -2,11 +2,21 @@ import { StyleSheet, View, Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../../constants/styles";
 
-const EmployeeDetailItem = ({ label, iconName }) => {
+const EmployeeDetailItem = ({
+  label,
+  iconName,
+  iconSize,
+  style,
+  textStyle,
+}) => {
   return (
-    <View style={styles.container}>
-      <Ionicons name={iconName} style={styles.icon} />
-      <Text style={styles.text}>{label}</Text>
+    <View style={[styles.container, style]}>
+      <Ionicons
+        name={iconName}
+        style={styles.icon}
+        size={iconSize && iconSize}
+      />
+      <Text style={[styles.text, textStyle]}>{label}</Text>
     </View>
   );
 };

@@ -8,7 +8,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 7,
@@ -74,7 +74,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 8,
@@ -85,7 +85,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 9,
@@ -96,7 +96,7 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
   {
     id: 10,
@@ -107,6 +107,6 @@ export const Employess = [
     addressCity: "Jaraville",
     addressState: "NSW",
     addressZip: "0100",
-    AddressCountry: "Australia",
+    addressCountry: "Australia",
   },
 ];

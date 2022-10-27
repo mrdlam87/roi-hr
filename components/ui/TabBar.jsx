@@ -1,10 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View, Text } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import AllEmployeesScreen from "../../screens/AllEmployeesScreen";
 import DepartmentsScreen from "../../screens/DepartmentsScreen";
 import TabItem from "./TabItem";
-import SearchBar from "./SearchBar";
 import { GlobalStyles } from "../../constants/styles";
 import Header from "./Header";
 
@@ -51,5 +48,3 @@ const TabBar = () => {
 };
 
 export default TabBar;
-
-const styles = StyleSheet.create({});

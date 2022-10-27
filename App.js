@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import TabBar from "./components/ui/TabBar";
 import LoginScreen from "./screens/LoginScreen";
+import { EmployeeProvider } from "./contexts/employee.context";
 
 const Stack = createStackNavigator();
 
@@ -18,15 +19,17 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
-          name="EmployeesOverview"
-          component={TabBar}
-          options={{}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <EmployeeProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen
+            name="EmployeesOverview"
+            component={TabBar}
+            options={{}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </EmployeeProvider>
   );
 }

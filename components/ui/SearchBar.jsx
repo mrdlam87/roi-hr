@@ -1,26 +1,39 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const SearchBar = ({ style }) => {
   return (
-    <TextInput
-      style={[styles.input, style]}
-      placeholder="Search"
-      placeholderTextColor={GlobalStyles.colors.secondaryMidGrey}
-      cursorColor={GlobalStyles.colors.primaryRed}
-    />
+    <View style={[styles.container, style]}>
+      <TextInput
+        style={styles.input}
+        placeholder="Search"
+        placeholderTextColor={GlobalStyles.colors.secondaryMidGrey}
+        cursorColor={GlobalStyles.colors.primaryRed}
+      />
+      <Ionicons name="search-circle" size={24} style={styles.icon} />
+    </View>
   );
 };
 
 export default SearchBar;
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: GlobalStyles.colors.secondaryLightOrange,
+    borderRadius: GlobalStyles.borderRadius,
+    height: 30,
+    paddingHorizontal: 15,
+  },
   input: {
+    flex: 1,
     fontSize: 16,
     color: "white",
-    paddingHorizontal: 15,
-    borderRadius: GlobalStyles.borderRadius,
-    backgroundColor: GlobalStyles.colors.secondaryLightOrange,
-    height: 30,
+  },
+  icon: {
+    color: GlobalStyles.colors.primaryRed,
+    marginLeft: 15,
   },
 });
