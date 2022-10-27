@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { Employess } from "../constants/employess";
+import { Employees } from "../constants/employees";
 
 export const EmployeeContext = createContext({
   selectedEmployee: null,
@@ -8,7 +8,7 @@ export const EmployeeContext = createContext({
   setShowEmployeeDetail: () => {},
   searchString: "",
   setSearchString: () => {},
-  searchedEmployess: Employess,
+  searchedEmployess: Employees,
   setSearchedEmployess: () => {},
 });
 
@@ -16,10 +16,10 @@ export const EmployeeProvider = ({ children }) => {
   const [showEmployeeDetail, setShowEmployeeDetail] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchString, setSearchString] = useState("");
-  const [searchedEmployess, setSearchedEmployess] = useState(Employess);
+  const [searchedEmployess, setSearchedEmployess] = useState(Employees);
 
   useEffect(() => {
-    const filteredEmployees = Employess.filter((employee) =>
+    const filteredEmployees = Employees.filter((employee) =>
       employee.name.toLowerCase().includes(searchString.toLowerCase())
     );
     setSearchedEmployess(filteredEmployees);

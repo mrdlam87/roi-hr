@@ -9,17 +9,7 @@ const AllEmployeesScreen = () => {
   const { searchedEmployess, setShowEmployeeDetail, setSelectedEmployee } =
     useContext(EmployeeContext);
 
-  const employeeClickHandler = (employee) => {
-    setSelectedEmployee(employee);
-    setShowEmployeeDetail(true);
-  };
-
-  const renderItems = ({ item }) => (
-    <EmployeeCard
-      employee={item}
-      onPress={employeeClickHandler.bind(this, item)}
-    />
-  );
+  const renderItems = ({ item }) => <EmployeeCard employee={item} />;
   const sortedEmployees = searchedEmployess.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
@@ -32,6 +22,7 @@ const AllEmployeesScreen = () => {
         renderItem={renderItems}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
+        style={styles.list}
       />
     </View>
   );
@@ -52,5 +43,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: "#ccc",
     marginVertical: 10,
+  },
+  list: {
+    paddingTop: 20,
   },
 });

@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Departments } from "../../constants/departments";
 import { GlobalStyles } from "../../constants/styles";
+import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 
-const EmployeeCard = ({ employee, onPress }) => {
+const EmployeeCard = ({ employee }) => {
   const {
     name,
     phone,
@@ -15,10 +17,18 @@ const EmployeeCard = ({ employee, onPress }) => {
     addressCountry,
   } = employee;
 
+  const { setSelectedEmployee, setShowEmployeeDetail } =
+    useContext(EmployeeContext);
+
+  const clickHandler = () => {
+    setSelectedEmployee(employee);
+    setShowEmployeeDetail(true);
+  };
+
   const addressString = `${addressStreet}, ${addressCity}, ${addressState} ${addressZip}`;
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={clickHandler}>
       <View style={styles.card}>
         <View style={styles.nameContainer}>
           <Text style={styles.nameText}>{name.split(" ")[0]}</Text>
@@ -53,7 +63,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "stretch",
-    padding: 5,
+    paddingVertical: 10,
     // elevation: 7,
     // borderRadius: GlobalStyles.borderRadius,
     // backgroundColor: GlobalStyles.colors.secondaryLightOrange,
