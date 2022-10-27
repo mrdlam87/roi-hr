@@ -3,8 +3,10 @@ import { StyleSheet, View, Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AllEmployeesScreen from "../../screens/AllEmployeesScreen";
 import DepartmentsScreen from "../../screens/DepartmentsScreen";
-import TabItem from "../tab-item/TabItem";
+import TabItem from "./TabItem";
+import SearchBar from "./SearchBar";
 import { GlobalStyles } from "../../constants/styles";
+import Header from "./Header";
 
 const TabBar = () => {
   const BottomTabs = createBottomTabNavigator();
@@ -12,19 +14,10 @@ const TabBar = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarShowLabel: false,
-        tabBarLabelStyle: {
-          fontSize: 14,
-          marginBottom: 5,
-        },
         tabBarStyle: {
-          position: "absolute",
-          bottom: 20,
-          left: 15,
-          right: 15,
-          borderRadius: GlobalStyles.borderRadius,
-          height: 60,
+          height: 70,
+          backgroundColor: GlobalStyles.colors.primaryRed,
         },
       }}
     >
@@ -32,6 +25,7 @@ const TabBar = () => {
         name="AllEmployees"
         component={AllEmployeesScreen}
         options={{
+          header: () => <Header />,
           tabBarIcon: ({ focused }) => (
             <TabItem label="All Employees" iconName="list" focused={focused} />
           ),
@@ -41,6 +35,8 @@ const TabBar = () => {
         name="Departments"
         component={DepartmentsScreen}
         options={{
+          header: () => <Header />,
+
           tabBarIcon: ({ focused }) => (
             <TabItem
               label="Departments"
@@ -56,4 +52,4 @@ const TabBar = () => {
 
 export default TabBar;
 
-const style = StyleSheet.create({});
+const styles = StyleSheet.create({});

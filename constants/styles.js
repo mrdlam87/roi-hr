@@ -8,5 +8,9 @@ export const GlobalStyles = {
     secondaryMidGrey: "#3b3b3b",
     secondaryLightGrey: "#d9d9d9",
   },
+  fonts: {
+    main: "Trebuchet-MS",
+    bold: "Trebuchet-Bold",
+  },
   borderRadius: 4,
 };

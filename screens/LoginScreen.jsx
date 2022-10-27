@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
   imageContainer: {
     flex: 1,
@@ -45,5 +46,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    fontFamily: GlobalStyles.fonts.main,
   },
 });

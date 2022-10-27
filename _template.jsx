@@ -4,4 +4,4 @@ const Template = () => {};
 
 export default Template;
 
-const style = StyleSheet.create({});
+const styles = StyleSheet.create({});

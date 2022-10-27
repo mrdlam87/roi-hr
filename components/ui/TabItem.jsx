@@ -9,11 +9,7 @@ const TabItem = ({ label, iconName, focused }) => {
         <Ionicons
           name={iconName}
           size={24}
-          color={
-            focused
-              ? GlobalStyles.colors.primaryRed
-              : GlobalStyles.colors.secondaryLightGrey
-          }
+          color={focused ? GlobalStyles.colors.primaryRed : "#888"}
         />
       </View>
       <Text style={[styles.text, focused && styles.textFocused]}>{label}</Text>
@@ -32,17 +28,18 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   iconFocused: {
-    backgroundColor: "#aaa",
+    backgroundColor: GlobalStyles.colors.secondaryLightGrey,
     borderRadius: GlobalStyles.borderRadius,
     width: 40,
     alignItems: "center",
   },
   text: {
-    fontSize: 12,
-    color: GlobalStyles.colors.primaryGrey,
+    fontSize: 14,
+    fontFamily: GlobalStyles.fonts.main,
+    color: "#888",
   },
   textFocused: {
-    color: "#761414",
+    color: GlobalStyles.colors.secondaryLightGrey,
     fontWeight: "bold",
   },
 });

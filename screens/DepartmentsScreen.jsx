@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
+import { GlobalStyles } from "../constants/styles";
 
 const DepartmentsScreen = () => {
   return (
@@ -15,5 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
 });
