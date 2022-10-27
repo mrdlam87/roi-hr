@@ -2,13 +2,11 @@ import { useContext, useState } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import EmployeeCard from "../components/employees-overview/EmployeeCard";
 import EmployeeDetailModal from "../components/employees-overview/EmployeeDetailModal";
-import SearchBar from "../components/ui/SearchBar";
-import { Employess } from "../constants/employess";
 import { GlobalStyles } from "../constants/styles";
 import { EmployeeContext } from "../contexts/employee.context";
 
 const AllEmployeesScreen = () => {
-  const { showEmployeeDetail, setShowEmployeeDetail, setSelectedEmployee } =
+  const { searchedEmployess, setShowEmployeeDetail, setSelectedEmployee } =
     useContext(EmployeeContext);
 
   const employeeClickHandler = (employee) => {
@@ -22,7 +20,9 @@ const AllEmployeesScreen = () => {
       onPress={employeeClickHandler.bind(this, item)}
     />
   );
-  const sortedEmployees = Employess.sort((a, b) => (a.name > b.name ? 1 : -1));
+  const sortedEmployees = searchedEmployess.sort((a, b) =>
+    a.name > b.name ? 1 : -1
+  );
 
   return (
     <View style={styles.container}>

@@ -19,17 +19,20 @@ export default function App() {
   }
 
   return (
-    <EmployeeProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen
-            name="EmployeesOverview"
-            component={TabBar}
-            options={{}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </EmployeeProvider>
+    <>
+      <StatusBar style="light" />
+      <EmployeeProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
+              name="EmployeesOverview"
+              component={TabBar}
+              options={{}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </EmployeeProvider>
+    </>
   );
 }

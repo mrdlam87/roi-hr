@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   nameText: {
-    color: GlobalStyles.colors.secondaryLightGrey,
+    color: "white",
     textAlign: "center",
     fontWeight: "bold",
   },

@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const SearchBar = ({ style }) => {
+const SearchBar = ({ style, value, onChange }) => {
   return (
     <View style={[styles.container, style]}>
       <TextInput
@@ -10,8 +10,10 @@ const SearchBar = ({ style }) => {
         placeholder="Search"
         placeholderTextColor={GlobalStyles.colors.secondaryMidGrey}
         cursorColor={GlobalStyles.colors.primaryRed}
+        value={value}
+        onChangeText={onChange}
       />
-      <Ionicons name="search-circle" size={24} style={styles.icon} />
+      <Ionicons name="search-circle" size={28} style={styles.icon} />
     </View>
   );
 };

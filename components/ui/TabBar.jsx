@@ -14,7 +14,13 @@ const TabBar = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           height: 70,
-          backgroundColor: GlobalStyles.colors.primaryRed,
+          // elevation: 10,
+          // position: "absolute",
+          // bottom: 10,
+          // left: 10,
+          // right: 10,
+          borderRadius: GlobalStyles.borderRadius,
+          backgroundColor: "#eee",
         },
       }}
     >
