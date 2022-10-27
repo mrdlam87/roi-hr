@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { Departments } from "../constants/departments";
 import { Employees } from "../constants/employees";
 
 export const EmployeeContext = createContext({
@@ -8,21 +9,29 @@ export const EmployeeContext = createContext({
   setShowEmployeeDetail: () => {},
   searchString: "",
   setSearchString: () => {},
-  searchedEmployess: Employees,
-  setSearchedEmployess: () => {},
+  searchedEmployees: Employees,
+  setSearchedEmployees: () => {},
+  searchedDepartments: Departments,
+  setSearchedDepartments: () => {},
 });
 
 export const EmployeeProvider = ({ children }) => {
   const [showEmployeeDetail, setShowEmployeeDetail] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchString, setSearchString] = useState("");
-  const [searchedEmployess, setSearchedEmployess] = useState(Employees);
+  const [searchedEmployees, setSearchedEmployees] = useState(Employees);
+  const [searchedDepartments, setSearchedDepartments] = useState(Departments);
 
   useEffect(() => {
     const filteredEmployees = Employees.filter((employee) =>
       employee.name.toLowerCase().includes(searchString.toLowerCase())
     );
-    setSearchedEmployess(filteredEmployees);
+    const filteredDepartments = Departments.filter((department) =>
+      department.name.toLowerCase().includes(searchString.toLowerCase())
+    );
+
+    setSearchedEmployees(filteredEmployees);
+    setSearchedDepartments(filteredDepartments);
   }, [searchString]);
 
   const value = {
@@ -32,7 +41,8 @@ export const EmployeeProvider = ({ children }) => {
     setSelectedEmployee,
     searchString,
     setSearchString,
-    searchedEmployess,
+    searchedEmployees,
+    searchedDepartments,
   };
 
   return (

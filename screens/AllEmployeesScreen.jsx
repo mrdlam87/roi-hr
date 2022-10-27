@@ -6,8 +6,11 @@ import { GlobalStyles } from "../constants/styles";
 import { EmployeeContext } from "../contexts/employee.context";
 
 const AllEmployeesScreen = () => {
-  const { searchedEmployess, setShowEmployeeDetail, setSelectedEmployee } =
-    useContext(EmployeeContext);
+  const {
+    searchedEmployees: searchedEmployess,
+    setShowEmployeeDetail,
+    setSelectedEmployee,
+  } = useContext(EmployeeContext);
 
   const renderItems = ({ item }) => <EmployeeCard employee={item} />;
   const sortedEmployees = searchedEmployess.sort((a, b) =>
