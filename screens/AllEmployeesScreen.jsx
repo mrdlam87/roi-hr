@@ -1,32 +1,19 @@
-import { useContext, useState } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
-import EmployeeCard from "../components/employees-overview/EmployeeCard";
-import EmployeeDetailModal from "../components/employees-overview/EmployeeDetailModal";
-import { GlobalStyles } from "../constants/styles";
+import { StyleSheet, View, FlatList } from "react-native";
+import { useContext } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
+import EmployeeDetailModal from "../components/employees-overview/EmployeeDetailModal";
+import NameList from "../components/employees-overview/NameList";
+import { GlobalStyles } from "../constants/styles";
 
 const AllEmployeesScreen = () => {
-  const {
-    searchedEmployees: searchedEmployess,
-    setShowEmployeeDetail,
-    setSelectedEmployee,
-  } = useContext(EmployeeContext);
+  const { availableLetters } = useContext(EmployeeContext);
 
-  const renderItems = ({ item }) => <EmployeeCard employee={item} />;
-  const sortedEmployees = searchedEmployess.sort((a, b) =>
-    a.name > b.name ? 1 : -1
-  );
+  const renderItems = ({ item }) => <NameList letter={item} />;
 
   return (
     <View style={styles.container}>
       <EmployeeDetailModal />
-      <FlatList
-        data={sortedEmployees}
-        renderItem={renderItems}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        style={styles.list}
-      />
+      <FlatList data={availableLetters} renderItem={renderItems} />
     </View>
   );
 };
@@ -38,16 +25,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
-  },
-  searchBar: {
-    marginTop: 30,
-  },
-  separator: {
-    borderTopWidth: 2,
-    borderTopColor: "#ccc",
-    marginVertical: 10,
-  },
-  list: {
-    paddingTop: 20,
   },
 });

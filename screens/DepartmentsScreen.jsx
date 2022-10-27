@@ -1,19 +1,13 @@
-import { StyleSheet, View, Text, FlatList } from "react-native";
-import DepartmentList from "../components/departments/DepartmentList";
-import { GlobalStyles } from "../constants/styles";
-import { Employees } from "../constants/employees";
+import { StyleSheet, View, FlatList } from "react-native";
 import { useContext } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
+import DepartmentList from "../components/departments/DepartmentList";
+import { GlobalStyles } from "../constants/styles";
 
 const DepartmentsScreen = () => {
-  const { searchedDepartments } = useContext(EmployeeContext);
+  const { availableDepartments } = useContext(EmployeeContext);
 
   const renderItems = ({ item }) => <DepartmentList department={item} />;
-  const availableDepartments = searchedDepartments.filter(
-    (department) =>
-      Employees.filter((employee) => employee.department === department.id)
-        .length > 0
-  );
 
   return (
     <View style={styles.container}>

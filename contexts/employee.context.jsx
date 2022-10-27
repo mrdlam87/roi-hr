@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { Departments } from "../constants/departments";
 import { Employees } from "../constants/employees";
+import { Letters } from "../constants/general";
 
 export const EmployeeContext = createContext({
   selectedEmployee: null,
@@ -13,6 +14,8 @@ export const EmployeeContext = createContext({
   setSearchedEmployees: () => {},
   searchedDepartments: Departments,
   setSearchedDepartments: () => {},
+  availableDepartments: [],
+  availableLetters: [],
 });
 
 export const EmployeeProvider = ({ children }) => {
@@ -21,6 +24,18 @@ export const EmployeeProvider = ({ children }) => {
   const [searchString, setSearchString] = useState("");
   const [searchedEmployees, setSearchedEmployees] = useState(Employees);
   const [searchedDepartments, setSearchedDepartments] = useState(Departments);
+
+  const availableDepartments = searchedDepartments.filter(
+    (department) =>
+      Employees.filter((employee) => employee.department === department.id)
+        .length > 0
+  );
+
+  const availableLetters = Letters.filter(
+    (letter) =>
+      searchedEmployees.filter((employee) => employee.name.startsWith(letter))
+        .length > 0
+  );
 
   useEffect(() => {
     const filteredEmployees = Employees.filter((employee) =>
@@ -43,6 +58,8 @@ export const EmployeeProvider = ({ children }) => {
     setSearchString,
     searchedEmployees,
     searchedDepartments,
+    availableDepartments,
+    availableLetters,
   };
 
   return (

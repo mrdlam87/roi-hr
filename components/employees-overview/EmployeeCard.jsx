@@ -1,8 +1,8 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import { useContext } from "react";
+import { EmployeeContext } from "../../contexts/employee.context";
 import { Departments } from "../../constants/departments";
 import { GlobalStyles } from "../../constants/styles";
-import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 
 const EmployeeCard = ({ employee }) => {
@@ -64,9 +64,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     paddingVertical: 10,
-    // elevation: 7,
-    // borderRadius: GlobalStyles.borderRadius,
-    // backgroundColor: GlobalStyles.colors.secondaryLightOrange,
   },
   nameContainer: {
     flex: 1,
