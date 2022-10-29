@@ -28,6 +28,7 @@ export default DepartmentList;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
+    paddingHorizontal: 15,
   },
   title: {
     fontSize: 20,

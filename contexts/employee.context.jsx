@@ -25,16 +25,12 @@ export const EmployeeProvider = ({ children }) => {
   const [searchedEmployees, setSearchedEmployees] = useState(Employees);
   const [searchedDepartments, setSearchedDepartments] = useState(Departments);
 
-  const availableDepartments = searchedDepartments.filter(
-    (department) =>
-      Employees.filter((employee) => employee.department === department.id)
-        .length > 0
+  const availableDepartments = searchedDepartments.filter((department) =>
+    Employees.some((employee) => employee.department === department.id)
   );
 
-  const availableLetters = Letters.filter(
-    (letter) =>
-      searchedEmployees.filter((employee) => employee.name.startsWith(letter))
-        .length > 0
+  const availableLetters = Letters.filter((letter) =>
+    searchedEmployees.some((employee) => employee.name.startsWith(letter))
   );
 
   useEffect(() => {

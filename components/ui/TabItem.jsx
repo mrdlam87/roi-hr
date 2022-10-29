@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: GlobalStyles.borderRadius,
     width: 40,
     alignItems: "center",
+    elevation: 5,
   },
   text: {
     fontSize: 14,

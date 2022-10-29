@@ -23,7 +23,7 @@ export default AllEmployeesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
 });

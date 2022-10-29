@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     overflow: "hidden",
     borderRadius: GlobalStyles.borderRadius,
+    elevation: 7,
   },
   button: {
     paddingHorizontal: 16,
