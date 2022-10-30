@@ -1,6 +1,49 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useReducer } from "react";
 import { Departments } from "../constants/departments";
 import { Letters } from "../constants/general";
+
+const INITIAL_STATE = {
+  employees: [],
+  selectedEmployee: null,
+  showEmployeeDetail: false,
+  searchString: "",
+};
+
+const ACTION_TYPES = {
+  SET_EMPLOYEES: "SET_EMPLOYEES",
+  SET_SELECTED_EMPLOYEES: "SET_SELECTED_EMPLOYEES",
+  SET_SHOW_EMPLOYEE_DETAIL: "",
+  SET_SEARCH_STRING: "SET_SEARCH_STRING",
+};
+
+const employeesReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case ACTION_TYPES.SET_EMPLOYEES:
+      return {
+        ...state,
+        employees: payload,
+      };
+    case ACTION_TYPES.SET_SELECTED_EMPLOYEES:
+      return {
+        ...state,
+        selectedEmployee: payload,
+      };
+    case ACTION_TYPES.SET_SHOW_EMPLOYEE_DETAIL:
+      return {
+        ...state,
+        showEmployeeDetail: payload,
+      };
+    case ACTION_TYPES.SET_SEARCH_STRING:
+      return {
+        ...state,
+        searchString: payload,
+      };
+    default:
+      return state;
+  }
+};
 
 export const EmployeeContext = createContext({
   employees: [],
@@ -19,12 +62,18 @@ export const EmployeeContext = createContext({
 });
 
 export const EmployeeProvider = ({ children }) => {
-  const [employees, setEmployees] = useState([]);
-  const [showEmployeeDetail, setShowEmployeeDetail] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [searchString, setSearchString] = useState("");
-  const [searchedEmployees, setSearchedEmployees] = useState([]);
-  const [searchedDepartments, setSearchedDepartments] = useState(Departments);
+  const [
+    { employees, selectedEmployee, showEmployeeDetail, searchString },
+    dispatch,
+  ] = useReducer(employeesReducer, INITIAL_STATE);
+
+  const searchedEmployees = employees.filter((employee) =>
+    employee.name.toLowerCase().includes(searchString.toLowerCase())
+  );
+
+  const searchedDepartments = Departments.filter((department) =>
+    department.name.toLowerCase().includes(searchString.toLowerCase())
+  );
 
   const availableDepartments = searchedDepartments.filter((department) =>
     employees.some((employee) => employee.department === department.id)
@@ -34,23 +83,22 @@ export const EmployeeProvider = ({ children }) => {
     searchedEmployees.some((employee) => employee.name.startsWith(letter))
   );
 
+  const setSelectedEmployee = (value) =>
+    dispatch({ type: ACTION_TYPES.SET_SELECTED_EMPLOYEES, payload: value });
+
+  const setShowEmployeeDetail = (value) =>
+    dispatch({ type: ACTION_TYPES.SET_SHOW_EMPLOYEE_DETAIL, payload: value });
+
+  const setSearchString = (value) =>
+    dispatch({ type: ACTION_TYPES.SET_SEARCH_STRING, payload: value });
+
   useEffect(() => {
     fetch("https://mrdlam87.github.io/roi-hr-api/employees.json")
       .then((response) => response.json())
-      .then((employees) => setEmployees(employees));
+      .then((employees) =>
+        dispatch({ type: ACTION_TYPES.SET_EMPLOYEES, payload: employees })
+      );
   }, []);
-
-  useEffect(() => {
-    const filteredEmployees = employees.filter((employee) =>
-      employee.name.toLowerCase().includes(searchString.toLowerCase())
-    );
-    const filteredDepartments = Departments.filter((department) =>
-      department.name.toLowerCase().includes(searchString.toLowerCase())
-    );
-
-    setSearchedEmployees(filteredEmployees);
-    setSearchedDepartments(filteredDepartments);
-  }, [employees, searchString]);
 
   const value = {
     employees,
