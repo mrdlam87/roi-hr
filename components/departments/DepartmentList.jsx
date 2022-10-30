@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
-import { Employees } from "../../constants/employees";
 import { GlobalStyles } from "../../constants/styles";
+import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeCard from "../employees-overview/EmployeeCard";
 
 const DepartmentList = ({ department }) => {
   const { id, name } = department;
+  const { employees } = useContext(EmployeeContext);
 
-  const employees = Employees.filter((employee) => employee.department === id);
+  const filteredEmployees = employees?.filter(
+    (employee) => employee.department === id
+  );
 
   const renderItems = ({ item }) => <EmployeeCard employee={item} />;
 
@@ -14,7 +18,7 @@ const DepartmentList = ({ department }) => {
     <View style={styles.container}>
       <Text style={styles.title}>{name}</Text>
       <FlatList
-        data={employees}
+        data={filteredEmployees}
         renderItem={renderItems}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
