@@ -1,11 +1,11 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 import { GlobalStyles } from "../../constants/styles";
-import { EmployeeContext } from "../../contexts/employee.context";
+import { selectSearchedEmployees } from "../../store/employees.selector";
 import EmployeeCard from "../employees-overview/EmployeeCard";
 
 const NameList = ({ letter }) => {
-  const { searchedEmployees } = useContext(EmployeeContext);
+  const searchedEmployees = useSelector(selectSearchedEmployees);
 
   const employees = searchedEmployees.filter((employee) =>
     employee.name.startsWith(letter)

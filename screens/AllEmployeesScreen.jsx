@@ -1,12 +1,17 @@
 import { StyleSheet, View, FlatList } from "react-native";
-import { useContext } from "react";
-import { EmployeeContext } from "../contexts/employee.context";
+import { useSelector } from "react-redux";
 import EmployeeDetailModal from "../components/employees-overview/EmployeeDetailModal";
 import NameList from "../components/employees-overview/NameList";
+import { Letters } from "../constants/general";
 import { GlobalStyles } from "../constants/styles";
+import { selectSearchedEmployees } from "../store/employees.selector";
 
 const AllEmployeesScreen = () => {
-  const { availableLetters } = useContext(EmployeeContext);
+  const searchedEmployees = useSelector(selectSearchedEmployees);
+
+  const availableLetters = Letters.filter((letter) =>
+    searchedEmployees.some((employee) => employee.name.startsWith(letter))
+  );
 
   const renderItems = ({ item }) => <NameList letter={item} />;
 

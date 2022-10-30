@@ -1,12 +1,12 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
+import { selectEmployees } from "../../store/employees.selector";
 import { GlobalStyles } from "../../constants/styles";
-import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeCard from "../employees-overview/EmployeeCard";
 
 const DepartmentList = ({ department }) => {
+  const employees = useSelector(selectEmployees);
   const { id, name } = department;
-  const { employees } = useContext(EmployeeContext);
 
   const filteredEmployees = employees?.filter(
     (employee) => employee.department === id

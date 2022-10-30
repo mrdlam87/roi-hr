@@ -1,6 +1,9 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import { useContext } from "react";
-import { EmployeeContext } from "../../contexts/employee.context";
+import { useDispatch } from "react-redux";
+import {
+  setSelectedEmployee,
+  setShowEmployeeDetail,
+} from "../../store/employees.slice";
 import { Departments } from "../../constants/departments";
 import { GlobalStyles } from "../../constants/styles";
 import EmployeeDetailItem from "./EmployeeDetailItem";
@@ -14,15 +17,13 @@ const EmployeeCard = ({ employee }) => {
     addressCity,
     addressState,
     addressZip,
-    addressCountry,
   } = employee;
 
-  const { setSelectedEmployee, setShowEmployeeDetail } =
-    useContext(EmployeeContext);
+  const dispatch = useDispatch();
 
   const clickHandler = () => {
-    setSelectedEmployee(employee);
-    setShowEmployeeDetail(true);
+    dispatch(setSelectedEmployee(employee));
+    dispatch(setShowEmployeeDetail(true));
   };
 
   const addressString = `${addressStreet}, ${addressCity}, ${addressState} ${addressZip}`;

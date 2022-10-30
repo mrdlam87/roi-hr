@@ -1,12 +1,20 @@
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchString } from "../../store/employees.slice";
+import { selectSearchString } from "../../store/employees.selector";
+
 import SearchBar from "./SearchBar";
 import { GlobalStyles } from "../../constants/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useContext, useState } from "react";
-import { EmployeeContext } from "../../contexts/employee.context";
 
 const Header = () => {
-  const { searchString, setSearchString } = useContext(EmployeeContext);
+  const dispatch = useDispatch();
+  const searchString = useSelector(selectSearchString);
+
+  const changeHandler = (value) => {
+    const inputString = value;
+    dispatch(setSearchString(inputString));
+  };
 
   return (
     <View style={styles.container}>
@@ -17,7 +25,7 @@ const Header = () => {
         <SearchBar
           style={styles.searchBar}
           value={searchString}
-          onChange={setSearchString}
+          onChange={changeHandler}
         />
         <Pressable style={styles.iconContainer}>
           <Ionicons name="funnel" size={20} style={styles.icon} />

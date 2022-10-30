@@ -1,12 +1,19 @@
 import { StyleSheet, View, FlatList } from "react-native";
-import { useContext } from "react";
-import { EmployeeContext } from "../contexts/employee.context";
+import { useSelector } from "react-redux";
 import DepartmentList from "../components/departments/DepartmentList";
 import { GlobalStyles } from "../constants/styles";
+import {
+  selectEmployees,
+  selectSearchedDepartments,
+} from "../store/employees.selector";
 
 const DepartmentsScreen = () => {
-  const { availableDepartments } = useContext(EmployeeContext);
+  const searchedDepartments = useSelector(selectSearchedDepartments);
+  const employees = useSelector(selectEmployees);
 
+  const availableDepartments = searchedDepartments.filter((department) =>
+    employees.some((employee) => employee.department === department.id)
+  );
   const renderItems = ({ item }) => <DepartmentList department={item} />;
 
   return (

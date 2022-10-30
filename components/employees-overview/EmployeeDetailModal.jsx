@@ -1,16 +1,21 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, Modal, Pressable } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectSelectedEmployee,
+  selectShowEmployeeDetail,
+} from "../../store/employees.selector";
+import { setShowEmployeeDetail } from "../../store/employees.slice";
 import { GlobalStyles } from "../../constants/styles";
-import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 import { Departments } from "../../constants/departments";
 
 const EmployeeDetailModal = () => {
-  const { showEmployeeDetail, setShowEmployeeDetail, selectedEmployee } =
-    useContext(EmployeeContext);
+  const showEmployeeDetail = useSelector(selectShowEmployeeDetail);
+  const selectedEmployee = useSelector(selectSelectedEmployee);
+  const dispatch = useDispatch();
 
   const backgroundClickHandler = () => {
-    setShowEmployeeDetail(false);
+    dispatch(setShowEmployeeDetail(false));
   };
 
   if (!selectedEmployee) return;
