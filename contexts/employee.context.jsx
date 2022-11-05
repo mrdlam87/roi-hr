@@ -8,6 +8,8 @@ export const EmployeeContext = createContext({
   setSelectedEmployee: () => {},
   showEmployeeDetail: false,
   setShowEmployeeDetail: () => {},
+  showAddEmployee: false,
+  setShowAddEmployee: () => {},
   searchString: "",
   setSearchString: () => {},
   searchedEmployees: [],
@@ -21,6 +23,7 @@ export const EmployeeContext = createContext({
 export const EmployeeProvider = ({ children }) => {
   const [employees, setEmployees] = useState([]);
   const [showEmployeeDetail, setShowEmployeeDetail] = useState(false);
+  const [showAddEmployee, setShowAddEmployee] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchString, setSearchString] = useState("");
   const [searchedEmployees, setSearchedEmployees] = useState([]);
@@ -56,6 +59,8 @@ export const EmployeeProvider = ({ children }) => {
     employees,
     showEmployeeDetail,
     setShowEmployeeDetail,
+    showAddEmployee,
+    setShowAddEmployee,
     selectedEmployee,
     setSelectedEmployee,
     searchString,

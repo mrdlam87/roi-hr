@@ -9,7 +9,7 @@ const TabItem = ({ label, iconName, focused }) => {
         <Ionicons
           name={iconName}
           size={24}
-          color={focused ? GlobalStyles.colors.secondaryLightOrange : "#888"}
+          color={focused ? GlobalStyles.colors.secondaryLightGrey : "#888"}
         />
       </View>
       <Text style={[styles.text, focused && styles.textFocused]}>{label}</Text>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: GlobalStyles.borderRadius,
     width: 40,
     alignItems: "center",
-    elevation: 5,
+    // elevation: 5,
   },
   text: {
     fontSize: 14,

@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: "blue",
+    backgroundColor: GlobalStyles.colors.primaryRed,
   },
 });

@@ -7,10 +7,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/images/logo_main.png")}
-        style={styles.image}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/images/logo_main.png")}
+          style={styles.image}
+        />
+      </View>
       <Button
         style={styles.button}
         textStyle={styles.buttonText}
@@ -32,12 +34,13 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
   imageContainer: {
-    flex: 1,
+    backgroundColor: "black",
+    elevation: 7,
+    marginBottom: 20,
   },
   image: {
     width: 190,
     height: 100,
-    marginBottom: 20,
   },
   button: {
     backgroundColor: GlobalStyles.colors.primaryRed,

@@ -77,7 +77,6 @@ const EmployeeDetailModal = () => {
 export default EmployeeDetailModal;
 
 const styles = StyleSheet.create({
-  modal: {},
   container: {
     flex: 1,
     justifyContent: "center",
