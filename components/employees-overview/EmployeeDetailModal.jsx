@@ -9,8 +9,8 @@ const EmployeeDetailModal = () => {
   const { showEmployeeDetail, setShowEmployeeDetail, selectedEmployee } =
     useContext(EmployeeContext);
 
-  const backgroundClickHandler = () => {
-    setShowEmployeeDetail(false);
+  const backgroundClickHandler = (event) => {
+    if (event.target === event.currentTarget) setShowEmployeeDetail(false);
   };
 
   if (!selectedEmployee) return;
