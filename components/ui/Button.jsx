@@ -1,23 +1,23 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-const Button = ({ children, onPress, style, textStyle }) => {
-  const padding = {
-    padding: style?.padding,
-    paddingVertical: style?.paddingVertical,
-    paddingHorizontal: style?.paddingHorizontal,
-  };
-
-  const zeroPadding = { padding: 0, paddingHorizontal: 0, paddingVertical: 0 };
-
+const Button = ({ children, onPress, mode, style }) => {
   return (
-    <View style={[styles.buttonContainer, style, zeroPadding]}>
+    <View
+      style={[
+        styles.buttonContainer,
+        mode === "flat" && styles.flatContainer,
+        style,
+      ]}
+    >
       <Pressable
-        style={style ? padding : styles.button}
+        style={[styles.button, mode === "flat" && styles.flat]}
         android_ripple={{ color: "grey" }}
         onPress={onPress}
       >
-        <Text style={textStyle}>{children}</Text>
+        <Text style={[styles.text, mode === "flat" && styles.flatText]}>
+          {children}
+        </Text>
       </Pressable>
     </View>
   );
@@ -31,9 +31,26 @@ const styles = StyleSheet.create({
     borderRadius: GlobalStyles.borderRadius,
     elevation: 7,
   },
+  flatContainer: {
+    elevation: 0,
+  },
   button: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingVertical: 8,
+    borderRadius: GlobalStyles.borderRadius,
     backgroundColor: GlobalStyles.colors.primaryRed,
+  },
+  flat: {
+    backgroundColor: "transparent",
+    elevation: 0,
+  },
+  text: {
+    color: "white",
+    fontFamily: GlobalStyles.fonts.main,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  flatText: {
+    color: GlobalStyles.colors.primaryRed,
   },
 });

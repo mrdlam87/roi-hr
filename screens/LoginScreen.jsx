@@ -43,9 +43,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   button: {
-    backgroundColor: GlobalStyles.colors.primaryRed,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
+    width: "25%",
   },
   buttonText: {
     color: "white",

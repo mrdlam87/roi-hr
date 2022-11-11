@@ -1,28 +1,61 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
-import { StyleSheet, View, Text, Modal } from "react-native";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
+import Modal from "react-native-modal";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/ui/Button";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import Input from "../components/ui/Input";
+import DepartmentPicker from "../components/ui/DepartmentPicker";
+import StatePicker from "../components/ui/StatePicker";
 
 const AddEmployeeModal = () => {
   const { showAddEmployee, setShowAddEmployee } = useContext(EmployeeContext);
+  const [department, setDepartment] = useState();
+  const [addressState, setAddressState] = useState();
 
   const clickHandler = () => setShowAddEmployee(false);
 
   return (
-    <Modal transparent={true} visible={showAddEmployee} animationType="slide">
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <Text>Add Employee</Text>
+    <Modal
+      style={styles.modal}
+      isVisible={showAddEmployee}
+      backdropTransitionOutTiming={0}
+      onBackdropPress={clickHandler}
+    >
+      <View style={styles.card}>
+        <ScrollView>
+          <Text style={styles.title}>ADD EMPLOYEE</Text>
+          <View style={styles.form}>
+            <DepartmentPicker
+              selectedValue={department}
+              onValueChange={(value) => setDepartment(value)}
+            />
+            <View style={styles.row}>
+              <Input label="Employee ID" style={styles.rowInput} />
+              <Input label="Phone" style={styles.rowInput} />
+            </View>
+            <View style={styles.row}>
+              <Input label="First Name" style={styles.rowInput} />
+              <Input label="Last Name" style={styles.rowInput} />
+            </View>
+            <Input label="Street" />
+            <Input label="City" />
+            <View style={styles.row}>
+              <Input label="Postcode" style={styles.rowInput} />
+              <StatePicker
+                style={styles.rowInput}
+                selectedValue={addressState}
+                onValueChange={(value) => setAddressState(value)}
+              />
+            </View>
+          </View>
+        </ScrollView>
+        <View style={[styles.row, styles.buttonRow]}>
+          <Button style={styles.button} onPress={clickHandler} mode="flat">
+            CANCEL
+          </Button>
+          <Button style={styles.button}>ADD</Button>
         </View>
-        <Button style={styles.button} onPress={clickHandler}>
-          <Ionicons
-            name="close"
-            size={32}
-            color={GlobalStyles.colors.secondaryLightGrey}
-          />
-        </Button>
       </View>
     </Modal>
   );
@@ -31,23 +64,45 @@ const AddEmployeeModal = () => {
 export default AddEmployeeModal;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 20,
-    marginHorizontal: 20,
+  modal: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  card: {
+    height: "75%",
+    width: "100%",
     padding: 15,
     elevation: 10,
-    borderTopLeftRadius: GlobalStyles.borderRadius,
-    borderTopRightRadius: GlobalStyles.borderRadius,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: GlobalStyles.colors.primaryDark,
+    marginBottom: 20,
+    marginLeft: 8,
+  },
+  row: { flexDirection: "row", justifyContent: "space-between" },
+  rowInput: { flex: 1 },
   form: {
     flex: 1,
   },
-  button: {
+  pickerContainer: {
+    backgroundColor: GlobalStyles.colors.secondaryLightOrange,
+    borderRadius: GlobalStyles.borderRadius,
+    height: 40,
+    marginHorizontal: 8,
+    justifyContent: "center",
+  },
+  buttonRow: {
+    marginTop: 8,
+    width: "70%",
     alignSelf: "center",
-    borderRadius: 50,
-    padding: 8,
-    backgroundColor: GlobalStyles.colors.primaryRed,
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 8,
   },
 });
