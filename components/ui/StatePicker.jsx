@@ -3,9 +3,9 @@ import { Picker } from "@react-native-picker/picker";
 import { GlobalStyles } from "../../constants/styles";
 import InputPicker from "./InputPicker";
 
-const StatePicker = ({ style, ...pickerConfig }) => {
+const StatePicker = ({ style, valid, ...pickerConfig }) => {
   return (
-    <InputPicker label="State" style={style} {...pickerConfig}>
+    <InputPicker label="State" style={style} valid={valid} {...pickerConfig}>
       <Picker.Item style={styles.pickerItem} label="NSW" value="NSW" />
       <Picker.Item style={styles.pickerItem} label="VIC" value="VIC" />
       <Picker.Item style={styles.pickerItem} label="QLD" value="QLD" />

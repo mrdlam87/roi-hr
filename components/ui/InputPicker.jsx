@@ -2,10 +2,10 @@ import { StyleSheet, View, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { GlobalStyles } from "../../constants/styles";
 
-const InputPicker = ({ children, label, style, ...pickerConfig }) => {
+const InputPicker = ({ children, label, style, valid, ...pickerConfig }) => {
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, valid || styles.invalidLabel]}>{label}</Text>
       <View style={styles.pickerContainer}>
         <Picker
           dropdownIconColor={GlobalStyles.colors.primaryRed}
@@ -40,5 +40,8 @@ const styles = StyleSheet.create({
   },
   pickerItem: {
     color: "#3333337e",
+  },
+  invalidLabel: {
+    color: GlobalStyles.colors.error,
   },
 });

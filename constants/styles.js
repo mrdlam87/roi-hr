@@ -7,6 +7,7 @@ export const GlobalStyles = {
     secondaryLightOrange: "#cc6d4f",
     secondaryMidGrey: "#3b3b3b",
     secondaryLightGrey: "#d9d9d9",
+    error: "#cc303a",
   },
   fonts: {
     main: "Trebuchet-MS",

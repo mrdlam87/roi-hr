@@ -8,8 +8,20 @@ import Input from "../components/ui/Input";
 import DepartmentPicker from "../components/ui/DepartmentPicker";
 import StatePicker from "../components/ui/StatePicker";
 
+const INITIAL_STATUS = {
+  id: true,
+  name: true,
+  phone: true,
+  department: true,
+  addressStreet: true,
+  addressCity: true,
+  addressState: true,
+  addressZip: true,
+};
+
 const AddEmployeeModal = () => {
   const {
+    employees,
     addEmployee,
     updateEmployee,
     showAddEmployee,
@@ -18,6 +30,7 @@ const AddEmployeeModal = () => {
     setSelectedEmployee,
   } = useContext(EmployeeContext);
   const [formData, setFormData] = useState({});
+  const [formDataStatus, setFormDataStatus] = useState(INITIAL_STATUS);
 
   const inputChangedHandler = (identifier, value) => {
     setFormData((currentData) => {
@@ -26,12 +39,19 @@ const AddEmployeeModal = () => {
         [identifier]: value,
       };
     });
+    setFormDataStatus((currentData) => {
+      return {
+        ...currentData,
+        [identifier]: true,
+      };
+    });
   };
 
   const modalClose = () => {
     setShowAddEmployee(false);
     setSelectedEmployee(null);
     setFormData({});
+    setFormDataStatus(INITIAL_STATUS);
   };
 
   const modalShowHandler = () => {
@@ -53,6 +73,44 @@ const AddEmployeeModal = () => {
       id: +formData.id,
       addressCountry: "Australia",
     };
+
+    // Check id is a valid number and not already existing
+    const idValid =
+      !isNaN(employeeData.id) &&
+      employeeData.id > 0 &&
+      (!employees.some((employee) => employee.id === employeeData.id) ||
+        employeeData.id === selectedEmployee?.id);
+
+    const nameValid = employeeData.name.trim().length > 0;
+    const phoneValid = employeeData.phone.trim().length > 0;
+    const departmentValid = employeeData.department >= 0;
+    const addressStreetValid = employeeData.addressStreet.trim().length > 0;
+    const addressCityValid = employeeData.addressCity.trim().length > 0;
+    const addressStateValid = employeeData.addressState !== -1;
+    const addressZipValid = employeeData.addressZip.trim().length > 0;
+
+    if (
+      !idValid ||
+      !nameValid ||
+      !phoneValid ||
+      !departmentValid ||
+      !addressStreetValid ||
+      !addressCityValid ||
+      !addressStateValid ||
+      !addressZipValid
+    ) {
+      setFormDataStatus({
+        id: idValid,
+        name: nameValid,
+        phone: phoneValid,
+        department: departmentValid,
+        addressStreet: addressStreetValid,
+        addressCity: addressCityValid,
+        addressState: addressStateValid,
+        addressZip: addressZipValid,
+      });
+      return;
+    }
 
     selectedEmployee ? updateEmployee(employeeData) : addEmployee(employeeData);
     modalClose();
@@ -79,23 +137,27 @@ const AddEmployeeModal = () => {
                 style={styles.rowInput}
                 onChangeText={inputChangedHandler.bind(this, "id")}
                 value={formData.id}
+                valid={formDataStatus.id}
               />
               <Input
                 label="Phone"
                 style={styles.rowInput}
                 onChangeText={inputChangedHandler.bind(this, "phone")}
                 value={formData.phone}
+                valid={formDataStatus.phone}
               />
             </View>
             <DepartmentPicker
               selectedValue={formData.department}
               onValueChange={inputChangedHandler.bind(this, "department")}
+              valid={formDataStatus.department}
             />
             <Input
               label="Full Name"
               style={styles.rowInput}
               onChangeText={inputChangedHandler.bind(this, "name")}
               value={formData.name}
+              valid={formDataStatus.name}
             />
             <View style={styles.row}>
               <Input
@@ -103,12 +165,14 @@ const AddEmployeeModal = () => {
                 style={styles.rowInput}
                 onChangeText={inputChangedHandler.bind(this, "addressStreet")}
                 value={formData.addressStreet}
+                valid={formDataStatus.addressStreet}
               />
               <Input
                 label="City"
                 style={styles.rowInput}
                 onChangeText={inputChangedHandler.bind(this, "addressCity")}
                 value={formData.addressCity}
+                valid={formDataStatus.addressCity}
               />
             </View>
             <View style={styles.row}>
@@ -117,11 +181,13 @@ const AddEmployeeModal = () => {
                 style={styles.rowInput}
                 onChangeText={inputChangedHandler.bind(this, "addressZip")}
                 value={formData.addressZip}
+                valid={formDataStatus.addressZip}
               />
               <StatePicker
                 style={styles.rowInput}
                 selectedValue={formData.addressState}
                 onValueChange={inputChangedHandler.bind(this, "addressState")}
+                valid={formDataStatus.addressState}
               />
             </View>
           </View>

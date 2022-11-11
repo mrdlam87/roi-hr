@@ -3,9 +3,14 @@ import { Picker } from "@react-native-picker/picker";
 import { GlobalStyles } from "../../constants/styles";
 import InputPicker from "./InputPicker";
 
-const DepartmentPicker = ({ style, ...pickerConfig }) => {
+const DepartmentPicker = ({ style, valid, ...pickerConfig }) => {
   return (
-    <InputPicker label="Department" style={style} {...pickerConfig}>
+    <InputPicker
+      label="Department"
+      style={style}
+      valid={valid}
+      {...pickerConfig}
+    >
       <Picker.Item style={styles.pickerItem} label="General" value={0} />
       <Picker.Item
         style={styles.pickerItem}

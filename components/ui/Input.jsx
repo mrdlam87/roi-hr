@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-const Input = ({ label, style, ...inputConfig }) => {
+const Input = ({ label, style, valid, ...inputConfig }) => {
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, valid || styles.invalidLabel]}>{label}</Text>
       <TextInput
         style={styles.input}
         cursorColor={GlobalStyles.colors.primaryRed}
@@ -35,5 +35,8 @@ const styles = StyleSheet.create({
     padding: 6,
     fontSize: 16,
     color: GlobalStyles.colors.primaryDark,
+  },
+  invalidLabel: {
+    color: GlobalStyles.colors.error,
   },
 });
