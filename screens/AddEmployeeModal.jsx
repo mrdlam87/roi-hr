@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Modal from "react-native-modal";
@@ -9,52 +9,130 @@ import DepartmentPicker from "../components/ui/DepartmentPicker";
 import StatePicker from "../components/ui/StatePicker";
 
 const AddEmployeeModal = () => {
-  const { showAddEmployee, setShowAddEmployee } = useContext(EmployeeContext);
-  const [department, setDepartment] = useState();
-  const [addressState, setAddressState] = useState();
+  const {
+    addEmployee,
+    updateEmployee,
+    showAddEmployee,
+    setShowAddEmployee,
+    selectedEmployee,
+    setSelectedEmployee,
+  } = useContext(EmployeeContext);
+  const [formData, setFormData] = useState({});
 
-  const clickHandler = () => setShowAddEmployee(false);
+  const inputChangedHandler = (identifier, value) => {
+    setFormData((currentData) => {
+      return {
+        ...currentData,
+        [identifier]: value,
+      };
+    });
+  };
 
+  const modalClose = () => {
+    setShowAddEmployee(false);
+    setSelectedEmployee(null);
+    setFormData({});
+  };
+
+  const modalShowHandler = () => {
+    setFormData({
+      id: selectedEmployee ? selectedEmployee.id.toString() : "",
+      name: selectedEmployee ? selectedEmployee.name : "",
+      phone: selectedEmployee ? selectedEmployee.phone : "",
+      department: selectedEmployee ? selectedEmployee.department : -1,
+      addressStreet: selectedEmployee ? selectedEmployee.addressStreet : "",
+      addressCity: selectedEmployee ? selectedEmployee.addressCity : "",
+      addressState: selectedEmployee ? selectedEmployee.addressState : -1,
+      addressZip: selectedEmployee ? selectedEmployee.addressZip : "",
+    });
+  };
+
+  const submitHandler = () => {
+    const employeeData = {
+      ...formData,
+      id: +formData.id,
+      addressCountry: "Australia",
+    };
+
+    selectedEmployee ? updateEmployee(employeeData) : addEmployee(employeeData);
+    modalClose();
+  };
   return (
     <Modal
       style={styles.modal}
       isVisible={showAddEmployee}
       backdropTransitionOutTiming={0}
-      onBackdropPress={clickHandler}
+      onBackdropPress={modalClose}
+      backdropColor="#1a1a1a"
+      backdropOpacity={0.7}
+      onModalWillShow={modalShowHandler}
     >
       <View style={styles.card}>
         <ScrollView>
-          <Text style={styles.title}>ADD EMPLOYEE</Text>
+          <Text style={styles.title}>
+            {selectedEmployee ? "UPDATE" : "ADD"} EMPLOYEE
+          </Text>
           <View style={styles.form}>
+            <View style={styles.row}>
+              <Input
+                label="Employee ID"
+                style={styles.rowInput}
+                onChangeText={inputChangedHandler.bind(this, "id")}
+                value={formData.id}
+              />
+              <Input
+                label="Phone"
+                style={styles.rowInput}
+                onChangeText={inputChangedHandler.bind(this, "phone")}
+                value={formData.phone}
+              />
+            </View>
             <DepartmentPicker
-              selectedValue={department}
-              onValueChange={(value) => setDepartment(value)}
+              selectedValue={formData.department}
+              onValueChange={inputChangedHandler.bind(this, "department")}
+            />
+            <Input
+              label="Full Name"
+              style={styles.rowInput}
+              onChangeText={inputChangedHandler.bind(this, "name")}
+              value={formData.name}
             />
             <View style={styles.row}>
-              <Input label="Employee ID" style={styles.rowInput} />
-              <Input label="Phone" style={styles.rowInput} />
+              <Input
+                label="Street"
+                style={styles.rowInput}
+                onChangeText={inputChangedHandler.bind(this, "addressStreet")}
+                value={formData.addressStreet}
+              />
+              <Input
+                label="City"
+                style={styles.rowInput}
+                onChangeText={inputChangedHandler.bind(this, "addressCity")}
+                value={formData.addressCity}
+              />
             </View>
             <View style={styles.row}>
-              <Input label="First Name" style={styles.rowInput} />
-              <Input label="Last Name" style={styles.rowInput} />
-            </View>
-            <Input label="Street" />
-            <Input label="City" />
-            <View style={styles.row}>
-              <Input label="Postcode" style={styles.rowInput} />
+              <Input
+                label="Postcode"
+                style={styles.rowInput}
+                onChangeText={inputChangedHandler.bind(this, "addressZip")}
+                value={formData.addressZip}
+              />
               <StatePicker
                 style={styles.rowInput}
-                selectedValue={addressState}
-                onValueChange={(value) => setAddressState(value)}
+                selectedValue={formData.addressState}
+                onValueChange={inputChangedHandler.bind(this, "addressState")}
               />
             </View>
           </View>
         </ScrollView>
         <View style={[styles.row, styles.buttonRow]}>
-          <Button style={styles.button} onPress={clickHandler} mode="flat">
+          <Button style={styles.button} onPress={modalClose} mode="flat">
             CANCEL
           </Button>
-          <Button style={styles.button}>ADD</Button>
+          <Button style={styles.button} onPress={submitHandler}>
+            {selectedEmployee ? "UPDATE" : "ADD"}
+          </Button>
         </View>
       </View>
     </Modal>

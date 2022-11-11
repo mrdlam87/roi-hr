@@ -4,6 +4,8 @@ import { Letters } from "../constants/general";
 
 export const EmployeeContext = createContext({
   employees: [],
+  addEmployee: () => {},
+  updateEmployee: () => {},
   selectedEmployee: null,
   setSelectedEmployee: () => {},
   showEmployeeDetail: false,
@@ -37,6 +39,17 @@ export const EmployeeProvider = ({ children }) => {
     searchedEmployees.some((employee) => employee.name.startsWith(letter))
   );
 
+  const addEmployee = (employee) => setEmployees([...employees, employee]);
+
+  const updateEmployee = (updatedEmployee) => {
+    const updatedEmployeeIndex = employees.findIndex(
+      (employee) => employee.id === selectedEmployee.id
+    );
+
+    employees[updatedEmployeeIndex] = updatedEmployee;
+    setEmployees([...employees]);
+  };
+
   useEffect(() => {
     fetch("https://mrdlam87.github.io/roi-hr-api/employees.json")
       .then((response) => response.json())
@@ -57,6 +70,8 @@ export const EmployeeProvider = ({ children }) => {
 
   const value = {
     employees,
+    addEmployee,
+    updateEmployee,
     showEmployeeDetail,
     setShowEmployeeDetail,
     showAddEmployee,

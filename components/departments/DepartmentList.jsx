@@ -8,9 +8,9 @@ const DepartmentList = ({ department }) => {
   const { id, name } = department;
   const { employees } = useContext(EmployeeContext);
 
-  const filteredEmployees = employees?.filter(
-    (employee) => employee.department === id
-  );
+  const filteredEmployees = employees
+    ?.filter((employee) => employee.department === id)
+    .sort((a, b) => (a.name > b.name ? 1 : -1));
 
   const renderItems = ({ item }) => <EmployeeCard employee={item} />;
 

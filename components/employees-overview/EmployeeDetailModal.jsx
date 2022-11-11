@@ -1,16 +1,30 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, Modal, Pressable } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { useContext } from "react";
 import { EmployeeContext } from "../../contexts/employee.context";
+import { GlobalStyles } from "../../constants/styles";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 import { Departments } from "../../constants/departments";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const EmployeeDetailModal = () => {
-  const { showEmployeeDetail, setShowEmployeeDetail, selectedEmployee } =
-    useContext(EmployeeContext);
+  const {
+    showEmployeeDetail,
+    setShowEmployeeDetail,
+    selectedEmployee,
+    setSelectedEmployee,
+    setShowAddEmployee,
+  } = useContext(EmployeeContext);
 
   const backgroundClickHandler = (event) => {
-    if (event.target === event.currentTarget) setShowEmployeeDetail(false);
+    if (event.target === event.currentTarget) {
+      setShowEmployeeDetail(false);
+      setSelectedEmployee(null);
+    }
+  };
+
+  const editClickHandler = () => {
+    setShowAddEmployee(true);
+    setShowEmployeeDetail(false);
   };
 
   if (!selectedEmployee) return;
@@ -39,6 +53,13 @@ const EmployeeDetailModal = () => {
         <View style={styles.card}>
           <View style={styles.nameContainer}>
             <Text style={styles.nameText}>{name}</Text>
+            <Pressable style={styles.iconButton} onPress={editClickHandler}>
+              <Ionicons
+                name="create"
+                color={GlobalStyles.colors.secondaryLightGrey}
+                size={30}
+              />
+            </Pressable>
           </View>
           <EmployeeDetailItem
             label={phone}
@@ -81,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(26, 26, 26, 0.8)",
+    backgroundColor: "rgba(26, 26, 26, 0.7)",
   },
   card: {
     backgroundColor: GlobalStyles.colors.secondaryLightOrange,
@@ -108,5 +129,9 @@ const styles = StyleSheet.create({
   detailText: {
     fontSize: 16,
     marginLeft: 5,
+  },
+  iconButton: {
+    position: "absolute",
+    right: 10,
   },
 });
