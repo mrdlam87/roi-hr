@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { Departments } from "../constants/departments";
 import { Letters } from "../constants/general";
+import { getEmployees } from "../utils/firebase";
 
 export const EmployeeContext = createContext({
   employees: [],
@@ -51,9 +52,14 @@ export const EmployeeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetch("https://mrdlam87.github.io/roi-hr-api/employees.json")
-      .then((response) => response.json())
-      .then((employees) => setEmployees(employees));
+    const fetchEmployees = async () => {
+      try {
+        const employeesDb = await getEmployees();
+        setEmployees(employeesDb);
+      } catch (error) {}
+    };
+
+    fetchEmployees();
   }, []);
 
   useEffect(() => {

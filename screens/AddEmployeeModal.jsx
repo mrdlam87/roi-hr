@@ -7,6 +7,7 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import DepartmentPicker from "../components/ui/DepartmentPicker";
 import StatePicker from "../components/ui/StatePicker";
+import { postEmployee, putEmployee } from "../utils/firebase";
 
 const INITIAL_STATUS = {
   id: true,
@@ -54,7 +55,7 @@ const AddEmployeeModal = () => {
     setFormDataStatus(INITIAL_STATUS);
   };
 
-  const modalShowHandler = () => {
+  const modalShowHandler = async () => {
     setFormData({
       id: selectedEmployee ? selectedEmployee.id.toString() : "",
       name: selectedEmployee ? selectedEmployee.name : "",
@@ -67,7 +68,7 @@ const AddEmployeeModal = () => {
     });
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     const employeeData = {
       ...formData,
       id: +formData.id,
@@ -81,38 +82,27 @@ const AddEmployeeModal = () => {
       (!employees.some((employee) => employee.id === employeeData.id) ||
         employeeData.id === selectedEmployee?.id);
 
-    const nameValid = employeeData.name.trim().length > 0;
-    const phoneValid = employeeData.phone.trim().length > 0;
-    const departmentValid = employeeData.department >= 0;
-    const addressStreetValid = employeeData.addressStreet.trim().length > 0;
-    const addressCityValid = employeeData.addressCity.trim().length > 0;
-    const addressStateValid = employeeData.addressState !== -1;
-    const addressZipValid = employeeData.addressZip.trim().length > 0;
+    const dataStatus = {
+      id: idValid,
+      name: employeeData.name.trim().length > 0,
+      phone: employeeData.phone.trim().length > 0,
+      department: employeeData.department >= 0,
+      addressStreet: employeeData.addressStreet.trim().length > 0,
+      addressCity: employeeData.addressCity.trim().length > 0,
+      addressState: employeeData.addressState !== -1,
+      addressZip: employeeData.addressZip.trim().length > 0,
+    };
 
-    if (
-      !idValid ||
-      !nameValid ||
-      !phoneValid ||
-      !departmentValid ||
-      !addressStreetValid ||
-      !addressCityValid ||
-      !addressStateValid ||
-      !addressZipValid
-    ) {
-      setFormDataStatus({
-        id: idValid,
-        name: nameValid,
-        phone: phoneValid,
-        department: departmentValid,
-        addressStreet: addressStreetValid,
-        addressCity: addressCityValid,
-        addressState: addressStateValid,
-        addressZip: addressZipValid,
-      });
-      return;
+    setFormDataStatus(dataStatus);
+    if (!Object.values(dataStatus).every((status) => status)) return;
+
+    if (selectedEmployee) {
+      await putEmployee(selectedEmployee.key, employeeData);
+      updateEmployee({ ...employeeData, key: selectedEmployee.key });
+    } else {
+      const key = await postEmployee(employeeData);
+      addEmployee({ ...employeeData, key });
     }
-
-    selectedEmployee ? updateEmployee(employeeData) : addEmployee(employeeData);
     modalClose();
   };
   return (
