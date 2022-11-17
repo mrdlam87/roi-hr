@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Modal from "react-native-modal";
@@ -7,7 +7,8 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import DepartmentPicker from "../components/ui/DepartmentPicker";
 import StatePicker from "../components/ui/StatePicker";
-import { postEmployee, putEmployee } from "../utils/firebase";
+import { delEmployee, postEmployee, putEmployee } from "../utils/firebase";
+import IconButton from "../components/ui/IconButton";
 
 const INITIAL_STATUS = {
   id: true,
@@ -25,6 +26,7 @@ const AddEmployeeModal = () => {
     employees,
     addEmployee,
     updateEmployee,
+    deleteEmployee,
     showAddEmployee,
     setShowAddEmployee,
     selectedEmployee,
@@ -105,6 +107,13 @@ const AddEmployeeModal = () => {
     }
     modalClose();
   };
+
+  const deleteHandler = async () => {
+    await delEmployee(selectedEmployee.key);
+    deleteEmployee();
+    modalClose();
+  };
+
   return (
     <Modal
       style={styles.modal}
@@ -117,9 +126,19 @@ const AddEmployeeModal = () => {
     >
       <View style={styles.card}>
         <ScrollView>
-          <Text style={styles.title}>
-            {selectedEmployee ? "UPDATE" : "ADD"} EMPLOYEE
-          </Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+              {selectedEmployee ? "UPDATE" : "ADD"} EMPLOYEE
+            </Text>
+            {selectedEmployee && (
+              <IconButton
+                iconName="trash"
+                size={30}
+                color={GlobalStyles.colors.primaryRed}
+                onPress={deleteHandler}
+              />
+            )}
+          </View>
           <View style={styles.form}>
             <View style={styles.row}>
               <Input
@@ -211,12 +230,17 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
   },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    marginHorizontal: 8,
+  },
   title: {
     fontSize: 16,
     fontWeight: "bold",
     color: GlobalStyles.colors.primaryDark,
-    marginBottom: 20,
-    marginLeft: 8,
   },
   row: { flexDirection: "row", justifyContent: "space-between" },
   rowInput: { flex: 1 },

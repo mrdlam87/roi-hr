@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import SearchBar from "./SearchBar";
 import { GlobalStyles } from "../../constants/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { EmployeeContext } from "../../contexts/employee.context";
 
 const Header = () => {

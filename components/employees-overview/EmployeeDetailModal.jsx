@@ -5,6 +5,7 @@ import { GlobalStyles } from "../../constants/styles";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 import { Departments } from "../../constants/departments";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import IconButton from "../ui/IconButton";
 
 const EmployeeDetailModal = () => {
   const {
@@ -53,13 +54,13 @@ const EmployeeDetailModal = () => {
         <View style={styles.card}>
           <View style={styles.nameContainer}>
             <Text style={styles.nameText}>{name}</Text>
-            <Pressable style={styles.iconButton} onPress={editClickHandler}>
-              <Ionicons
-                name="create"
-                color={GlobalStyles.colors.secondaryLightGrey}
-                size={30}
-              />
-            </Pressable>
+            <IconButton
+              style={styles.iconButton}
+              iconName="create"
+              color={GlobalStyles.colors.secondaryLightGrey}
+              size={30}
+              onPress={editClickHandler}
+            />
           </View>
           <EmployeeDetailItem
             label={phone}

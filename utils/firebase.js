@@ -39,3 +39,6 @@ export const getEmployees = async () => {
 
 export const putEmployee = (key, employeeData) =>
   axios.put(BACKEND_URL + `/employees/${key}.json`, employeeData);
+
+export const delEmployee = (key) =>
+  axios.delete(BACKEND_URL + `/employees/${key}.json`);

@@ -7,6 +7,7 @@ export const EmployeeContext = createContext({
   employees: [],
   addEmployee: () => {},
   updateEmployee: () => {},
+  deleteEmployee: () => {},
   selectedEmployee: null,
   setSelectedEmployee: () => {},
   showEmployeeDetail: false,
@@ -40,7 +41,8 @@ export const EmployeeProvider = ({ children }) => {
     searchedEmployees.some((employee) => employee.name.startsWith(letter))
   );
 
-  const addEmployee = (employee) => setEmployees([...employees, employee]);
+  const addEmployee = async (employee) =>
+    setEmployees([...employees, employee]);
 
   const updateEmployee = (updatedEmployee) => {
     const updatedEmployeeIndex = employees.findIndex(
@@ -49,6 +51,13 @@ export const EmployeeProvider = ({ children }) => {
 
     employees[updatedEmployeeIndex] = updatedEmployee;
     setEmployees([...employees]);
+  };
+
+  const deleteEmployee = () => {
+    const updatedEmployees = employees.filter(
+      (employee) => employee.id !== selectedEmployee.id
+    );
+    setEmployees(updatedEmployees);
   };
 
   useEffect(() => {
@@ -78,6 +87,7 @@ export const EmployeeProvider = ({ children }) => {
     employees,
     addEmployee,
     updateEmployee,
+    deleteEmployee,
     showEmployeeDetail,
     setShowEmployeeDetail,
     showAddEmployee,
