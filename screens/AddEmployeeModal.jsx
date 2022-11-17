@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
 import { EmployeeContext } from "../contexts/employee.context";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import Modal from "react-native-modal";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/ui/Button";
@@ -9,6 +15,7 @@ import DepartmentPicker from "../components/ui/DepartmentPicker";
 import StatePicker from "../components/ui/StatePicker";
 import { delEmployee, postEmployee, putEmployee } from "../utils/firebase";
 import IconButton from "../components/ui/IconButton";
+import Toast from "react-native-toast-message";
 
 const INITIAL_STATUS = {
   id: true,
@@ -34,6 +41,7 @@ const AddEmployeeModal = () => {
   } = useContext(EmployeeContext);
   const [formData, setFormData] = useState({});
   const [formDataStatus, setFormDataStatus] = useState(INITIAL_STATUS);
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputChangedHandler = (identifier, value) => {
     setFormData((currentData) => {
@@ -55,6 +63,7 @@ const AddEmployeeModal = () => {
     setSelectedEmployee(null);
     setFormData({});
     setFormDataStatus(INITIAL_STATUS);
+    setIsLoading(false);
   };
 
   const modalShowHandler = async () => {
@@ -98,6 +107,7 @@ const AddEmployeeModal = () => {
     setFormDataStatus(dataStatus);
     if (!Object.values(dataStatus).every((status) => status)) return;
 
+    setIsLoading(true);
     if (selectedEmployee) {
       await putEmployee(selectedEmployee.key, employeeData);
       updateEmployee({ ...employeeData, key: selectedEmployee.key });
@@ -105,10 +115,17 @@ const AddEmployeeModal = () => {
       const key = await postEmployee(employeeData);
       addEmployee({ ...employeeData, key });
     }
+
+    Toast.show({
+      type: "success",
+      text1: "Employee database updated",
+      // text2: "This is some something 👋",
+    });
     modalClose();
   };
 
   const deleteHandler = async () => {
+    setIsLoading(true);
     await delEmployee(selectedEmployee.key);
     deleteEmployee();
     modalClose();
@@ -124,6 +141,12 @@ const AddEmployeeModal = () => {
       backdropOpacity={0.7}
       onModalWillShow={modalShowHandler}
     >
+      <ActivityIndicator
+        size={48}
+        color={GlobalStyles.colors.primaryRed}
+        style={styles.indicator}
+        animating={isLoading}
+      />
       <View style={styles.card}>
         <ScrollView>
           <View style={styles.titleContainer}>
@@ -229,6 +252,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     backgroundColor: GlobalStyles.colors.secondaryLightGrey,
+  },
+  indicator: {
+    marginBottom: 10,
   },
   titleContainer: {
     flexDirection: "row",

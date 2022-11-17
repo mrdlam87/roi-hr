@@ -7,6 +7,8 @@ import TabBar from "./components/ui/TabBar";
 import LoginScreen from "./screens/LoginScreen";
 import EmployeeDetailModal from "./components/employees-overview/EmployeeDetailModal";
 import AddEmployeeModal from "./screens/AddEmployeeModal";
+import Toast from "react-native-toast-message";
+import CustomToast from "./components/ui/CustomToast";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,10 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
+  const toastConfig = {
+    success: ({ text1 }) => <CustomToast text1={text1} />,
+  };
 
   return (
     <>
@@ -36,6 +42,7 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
+        <Toast config={toastConfig} position="bottom" visibilityTime={2000} />
       </EmployeeProvider>
     </>
   );
