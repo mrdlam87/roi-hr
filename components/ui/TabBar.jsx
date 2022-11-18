@@ -1,12 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllEmployeesScreen from "../../screens/AllEmployeesScreen";
 import DepartmentsScreen from "../../screens/DepartmentsScreen";
-import AddEmployeeModal from "../../screens/AddEmployeeModal";
+import EditEmployeeModal from "../../screens/EditEmployeeModal";
 import TabItem from "./TabItem";
 import { GlobalStyles } from "../../constants/styles";
 import Header from "./Header";
 import AddButton from "./AddButton";
 
+/**
+ *
+ * @returns {JSX.Element} Custom bottom tab navigation component
+ */
 const TabBar = () => {
   const BottomTabs = createBottomTabNavigator();
 
@@ -16,11 +20,6 @@ const TabBar = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           height: 70,
-          // elevation: 10,
-          // position: "absolute",
-          // bottom: 10,
-          // left: 10,
-          // right: 10,
           borderRadius: GlobalStyles.borderRadius,
           backgroundColor: "#eee",
         },
@@ -38,7 +37,7 @@ const TabBar = () => {
       />
       <BottomTabs.Screen
         name="AddEmployee"
-        component={AddEmployeeModal}
+        component={EditEmployeeModal}
         listeners={{ tabPress: (e) => e.preventDefault() }}
         options={{
           tabBarIcon: () => <AddButton />,

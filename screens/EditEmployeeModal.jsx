@@ -28,7 +28,10 @@ const INITIAL_STATUS = {
   addressZip: true,
 };
 
-const AddEmployeeModal = () => {
+/**
+ * @returns {JSX.Element} Custom modal component with form for adding or updating employee
+ */
+const EditEmployeeModal = () => {
   const {
     employees,
     addEmployee,
@@ -43,6 +46,7 @@ const AddEmployeeModal = () => {
   const [formDataStatus, setFormDataStatus] = useState(INITIAL_STATUS);
   const [isLoading, setIsLoading] = useState(false);
 
+  //generic text change handler which will assign for form object based on identifier
   const inputChangedHandler = (identifier, value) => {
     setFormData((currentData) => {
       return {
@@ -66,7 +70,8 @@ const AddEmployeeModal = () => {
     setIsLoading(false);
   };
 
-  const modalShowHandler = async () => {
+  //load default values if there is no valid employee selected
+  const modalShowHandler = () => {
     setFormData({
       id: selectedEmployee ? selectedEmployee.id.toString() : "",
       name: selectedEmployee ? selectedEmployee.name : "",
@@ -80,6 +85,7 @@ const AddEmployeeModal = () => {
   };
 
   const submitHandler = async () => {
+    //pass in form data values into temporary employee object
     const employeeData = {
       ...formData,
       id: +formData.id,
@@ -93,6 +99,7 @@ const AddEmployeeModal = () => {
       (!employees.some((employee) => employee.id === employeeData.id) ||
         employeeData.id === selectedEmployee?.id);
 
+    //create form validation object with status for each input
     const dataStatus = {
       id: idValid,
       name: employeeData.name.trim().length > 0,
@@ -105,9 +112,11 @@ const AddEmployeeModal = () => {
     };
 
     setFormDataStatus(dataStatus);
+    //Stop form submission if there are invalid entires
     if (!Object.values(dataStatus).every((status) => status)) return;
 
     setIsLoading(true);
+    //update employee profile if valid employee selected else create new profile
     if (selectedEmployee) {
       await putEmployee(selectedEmployee.key, employeeData);
       updateEmployee({ ...employeeData, key: selectedEmployee.key });
@@ -119,7 +128,6 @@ const AddEmployeeModal = () => {
     Toast.show({
       type: "success",
       text1: "Employee database updated",
-      // text2: "This is some something 👋",
     });
     modalClose();
   };
@@ -128,6 +136,10 @@ const AddEmployeeModal = () => {
     setIsLoading(true);
     await delEmployee(selectedEmployee.key);
     deleteEmployee();
+    Toast.show({
+      type: "success",
+      text1: "Employee profile deleted",
+    });
     modalClose();
   };
 
@@ -237,7 +249,7 @@ const AddEmployeeModal = () => {
   );
 };
 
-export default AddEmployeeModal;
+export default EditEmployeeModal;
 
 const styles = StyleSheet.create({
   modal: {

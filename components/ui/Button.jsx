@@ -1,6 +1,15 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ *
+ * @param {object} props
+ * @param {JSX.Element} props.children children inside button container
+ * @param {callback} props.onPress callback function for onPress handler
+ * @param {string} props.mode string indentifer for styling
+ * @param {object} props.style compatible React Native style object
+ * @returns {JSX.Element} Custom round rectangle buttom component
+ */
 const Button = ({ children, onPress, mode, style }) => {
   return (
     <View

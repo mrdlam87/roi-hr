@@ -1,6 +1,12 @@
 import { StyleSheet, View, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ *
+ * @param {object} props
+ * @param {string} props.text1 string for toast message
+ * @returns {JSX.Element} Custom toast component
+ */
 const CustomToast = ({ text1 }) => {
   return (
     <View style={styles.card}>

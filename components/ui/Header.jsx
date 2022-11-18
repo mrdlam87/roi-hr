@@ -5,6 +5,10 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useContext } from "react";
 import { EmployeeContext } from "../../contexts/employee.context";
 
+/**
+ *
+ * @returns {JSX.Element} Custom header component with search bar
+ */
 const Header = () => {
   const { searchString, setSearchString } = useContext(EmployeeContext);
 

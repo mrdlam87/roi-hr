@@ -1,8 +1,12 @@
 import { useContext } from "react";
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { EmployeeContext } from "../../contexts/employee.context";
 
+/**
+ *
+ * @returns Custom logo button component
+ */
 const AddButton = () => {
   const { setShowAddEmployee } = useContext(EmployeeContext);
 

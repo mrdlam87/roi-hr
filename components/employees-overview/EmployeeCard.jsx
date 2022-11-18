@@ -5,6 +5,12 @@ import { Departments } from "../../constants/departments";
 import { GlobalStyles } from "../../constants/styles";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 
+/**
+ *
+ * @param {object} props
+ * @param {object} props.employee a single employee object
+ * @returns {JSX.Element} Custom card component for specified employee
+ */
 const EmployeeCard = ({ employee }) => {
   const {
     name,
@@ -14,12 +20,12 @@ const EmployeeCard = ({ employee }) => {
     addressCity,
     addressState,
     addressZip,
-    addressCountry,
   } = employee;
 
   const { setSelectedEmployee, setShowEmployeeDetail } =
     useContext(EmployeeContext);
 
+  // set current employee to selected and open modal
   const clickHandler = () => {
     setSelectedEmployee(employee);
     setShowEmployeeDetail(true);

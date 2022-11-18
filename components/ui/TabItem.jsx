@@ -2,6 +2,14 @@ import { StyleSheet, View, Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ *
+ * @param {object} props
+ * @param {string} props.label tab item label
+ * @param {string} props.iconName name of Ionicon icon
+ * @param {boolean} props.focused status for tab currently selected or in focus
+ * @returns {JSX.Element} Custom round rectangle buttom component
+ */
 const TabItem = ({ label, iconName, focused }) => {
   return (
     <View style={styles.tabContainer}>

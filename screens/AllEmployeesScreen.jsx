@@ -4,6 +4,10 @@ import { EmployeeContext } from "../contexts/employee.context";
 import NameList from "../components/employees-overview/NameList";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ *
+ * @returns {JSX.Element} Custom screen for all employees
+ */
 const AllEmployeesScreen = () => {
   const { availableLetters } = useContext(EmployeeContext);
 

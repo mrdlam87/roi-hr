@@ -2,6 +2,11 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import Button from "../components/ui/Button";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ * @param {object} props
+ * @param {JSX.Element} props.navigation navigation object as provided by React Navigator
+ * @returns {JSX.Element} Custom temporary login/startup screen
+ */
 const LoginScreen = ({ navigation }) => {
   const loginHandler = () => navigation.navigate("EmployeesOverview");
 

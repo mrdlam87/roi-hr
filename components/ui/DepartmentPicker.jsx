@@ -3,6 +3,14 @@ import { Picker } from "@react-native-picker/picker";
 import { GlobalStyles } from "../../constants/styles";
 import InputPicker from "./InputPicker";
 
+/**
+ *
+ * @param {object} props
+ * @param {object} props.style compatible React Native style object
+ * @param {boolean} props.valid status for valid selection
+ * @param {object[]} props.pickerConfig array of remaining properties
+ * @returns {JSX.Element} Custom picker for department options
+ */
 const DepartmentPicker = ({ style, valid, ...pickerConfig }) => {
   return (
     <InputPicker

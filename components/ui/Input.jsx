@@ -1,6 +1,15 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ *
+ * @param {object} props
+ * @param {object} props.label text input label tag
+ * @param {object} props.style compatible React Native style object
+ * @param {boolean} props.valid status for valid selection
+ * @param {object[]} props.inputConfig array of remaining properties
+ * @returns {JSX.Element} Custom picker for department options
+ */
 const Input = ({ label, style, valid, ...inputConfig }) => {
   return (
     <View style={[styles.container, style]}>

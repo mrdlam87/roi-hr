@@ -2,6 +2,14 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+/**
+ *
+ * @param {object} props
+ * @param {object} props.style compatible React Native style object
+ * @param {string} props.value string indentifer for styling
+ * @param {callback} props.onChange callback function for onChange handler in text input
+ * @returns {JSX.Element} Custom search bar text input
+ */
 const SearchBar = ({ style, value, onChange }) => {
   return (
     <View style={[styles.container, style]}>

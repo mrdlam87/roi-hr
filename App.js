@@ -6,7 +6,7 @@ import { useFonts } from "expo-font";
 import TabBar from "./components/ui/TabBar";
 import LoginScreen from "./screens/LoginScreen";
 import EmployeeDetailModal from "./components/employees-overview/EmployeeDetailModal";
-import AddEmployeeModal from "./screens/AddEmployeeModal";
+import EditEmployeeModal from "./screens/EditEmployeeModal";
 import Toast from "react-native-toast-message";
 import CustomToast from "./components/ui/CustomToast";
 
@@ -18,6 +18,7 @@ export default function App() {
     "Trebuchet-Bold": require("./assets/fonts/trebucbd.ttf"),
   });
 
+  //do not render until font is loaded
   if (!fontsLoaded) {
     return null;
   }
@@ -31,7 +32,7 @@ export default function App() {
       <StatusBar style="light" />
       <EmployeeProvider>
         <EmployeeDetailModal />
-        <AddEmployeeModal />
+        <EditEmployeeModal />
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />

@@ -4,10 +4,17 @@ import { GlobalStyles } from "../../constants/styles";
 import { EmployeeContext } from "../../contexts/employee.context";
 import EmployeeCard from "../employees-overview/EmployeeCard";
 
+/**
+ *
+ * @param {object} props
+ * @param {object} props.department a single department object
+ * @returns {JSX.Element} Custom flat list for specified department
+ */
 const DepartmentList = ({ department }) => {
   const { id, name } = department;
   const { employees } = useContext(EmployeeContext);
 
+  //select only the employees for current department list
   const filteredEmployees = employees
     ?.filter((employee) => employee.department === id)
     .sort((a, b) => (a.name > b.name ? 1 : -1));

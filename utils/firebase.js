@@ -3,6 +3,7 @@ import axios from "axios";
 const BACKEND_URL =
   "https://roi-hr-default-rtdb.asia-southeast1.firebasedatabase.app";
 
+//add employee to Firebase
 export const postEmployee = async (employeeData) => {
   const response = await axios.post(
     BACKEND_URL + `/employees.json`,
@@ -13,6 +14,7 @@ export const postEmployee = async (employeeData) => {
   return response.data.name;
 };
 
+//fetch employees data from Firebase
 export const getEmployees = async () => {
   const response = await axios.get(BACKEND_URL + `/employees.json`);
   const employees = [];
@@ -37,8 +39,10 @@ export const getEmployees = async () => {
   return employees;
 };
 
+//update employee to Firebase
 export const putEmployee = (key, employeeData) =>
   axios.put(BACKEND_URL + `/employees/${key}.json`, employeeData);
 
+//delete employee from Firebase
 export const delEmployee = (key) =>
   axios.delete(BACKEND_URL + `/employees/${key}.json`);

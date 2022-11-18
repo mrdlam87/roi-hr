@@ -4,6 +4,10 @@ import { EmployeeContext } from "../contexts/employee.context";
 import DepartmentList from "../components/departments/DepartmentList";
 import { GlobalStyles } from "../constants/styles";
 
+/**
+ *
+ * @returns {JSX.Element} Custom screen for departments
+ */
 const DepartmentsScreen = () => {
   const { availableDepartments } = useContext(EmployeeContext);
 

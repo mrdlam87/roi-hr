@@ -4,9 +4,12 @@ import { EmployeeContext } from "../../contexts/employee.context";
 import { GlobalStyles } from "../../constants/styles";
 import EmployeeDetailItem from "./EmployeeDetailItem";
 import { Departments } from "../../constants/departments";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import IconButton from "../ui/IconButton";
 
+/**
+ *
+ * @returns {JSX.Element} Custom modal for selected employee
+ */
 const EmployeeDetailModal = () => {
   const {
     showEmployeeDetail,
@@ -16,7 +19,9 @@ const EmployeeDetailModal = () => {
     setShowAddEmployee,
   } = useContext(EmployeeContext);
 
+  //reset selected employee and close modal
   const backgroundClickHandler = (event) => {
+    //ignore clicks not directly on the background
     if (event.target === event.currentTarget) {
       setShowEmployeeDetail(false);
       setSelectedEmployee(null);
@@ -28,6 +33,7 @@ const EmployeeDetailModal = () => {
     setShowEmployeeDetail(false);
   };
 
+  //do not render if no valid selected employee
   if (!selectedEmployee) return;
 
   const {

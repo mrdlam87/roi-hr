@@ -24,6 +24,12 @@ export const EmployeeContext = createContext({
   availableLetters: [],
 });
 
+/**
+ *
+ * @param {object} props
+ * @param {JSX.Element} props.children children inside provider container
+ * @returns {JSX.Element} provider container to access employee context
+ */
 export const EmployeeProvider = ({ children }) => {
   const [employees, setEmployees] = useState([]);
   const [showEmployeeDetail, setShowEmployeeDetail] = useState(false);
@@ -33,10 +39,12 @@ export const EmployeeProvider = ({ children }) => {
   const [searchedEmployees, setSearchedEmployees] = useState([]);
   const [searchedDepartments, setSearchedDepartments] = useState(Departments);
 
+  //remove departments that do not have any employees assigned
   const availableDepartments = searchedDepartments.filter((department) =>
     employees.some((employee) => employee.department === department.id)
   );
 
+  //remove letters that do not have any employees assigned
   const availableLetters = Letters.filter((letter) =>
     searchedEmployees.some((employee) => employee.name.startsWith(letter))
   );
@@ -53,6 +61,7 @@ export const EmployeeProvider = ({ children }) => {
     setEmployees([...employees]);
   };
 
+  //remove selected employee
   const deleteEmployee = () => {
     const updatedEmployees = employees.filter(
       (employee) => employee.id !== selectedEmployee.id
@@ -60,6 +69,7 @@ export const EmployeeProvider = ({ children }) => {
     setEmployees(updatedEmployees);
   };
 
+  //fetch employee data on load
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -71,6 +81,7 @@ export const EmployeeProvider = ({ children }) => {
     fetchEmployees();
   }, []);
 
+  //update filtered arrays when search string changes
   useEffect(() => {
     const filteredEmployees = employees.filter((employee) =>
       employee.name.toLowerCase().includes(searchString.toLowerCase())

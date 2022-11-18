@@ -2,6 +2,16 @@ import { StyleSheet, View, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ *
+ * @param {object} props
+ * @param {JSX.Element} props.children children inside picker container
+ * @param {object} props.label picker label tag
+ * @param {object} props.style compatible React Native style object
+ * @param {boolean} props.valid status for valid selection
+ * @param {object[]} props.pickerConfig array of remaining propperties
+ * @returns {JSX.Element} Custom picker for department options
+ */
 const InputPicker = ({ children, label, style, valid, ...pickerConfig }) => {
   return (
     <View style={[styles.container, style]}>
